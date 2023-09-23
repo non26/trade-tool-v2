@@ -2,7 +2,7 @@
 
 # this project structure was created by Chatgpt
 
-myproject/
+myproject/\n
     ├── cmd/
     │   └── myapp/
     │       ├── main.go
