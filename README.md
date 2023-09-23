@@ -51,6 +51,7 @@ myproject/
     ├── README.md
     ├── go.mod
     └── go.sum
+```
 
 Let's break down the structure and the purpose of each directory:
 
