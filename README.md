@@ -2,6 +2,13 @@
 
 # this project structure was created by Chatgpt
 
+# Go Project Structure for Domain-Driven Design (DDD)
+
+This project structure is designed to align with Domain-Driven Design (DDD) principles, ensuring a clear separation of concerns and organization that reflects the domain's structure and concepts. The following is an overview of the project structure:
+
+## Directory Structure
+
+```plaintext
 myproject/
     ├── cmd/
     │   └── myapp/
