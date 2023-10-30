@@ -1,0 +1,23 @@
+environment: local
+
+port: 8080
+
+service-name:
+  binance-future: BNF
+  binance-spot: BNS
+
+secrets:
+  binance-apikey:
+  binance-secretKey:
+
+binance-future-url:
+  set-leverage:
+  single-order:
+  miltiple-order:
+  binance-future-baseUrl:
+    binance1:
+    binance2:
+    binance3:
+    binance4:
+
+
