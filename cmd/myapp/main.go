@@ -31,10 +31,15 @@ func main() {
 		config.ServiceName.BinanceFuture,
 		binanceFutureExternalService,
 	)
+
 	setNewLeveragehandler := handler.NewsetNewLeveragehandler(
 		binanceFutureService,
 	)
 	binanceFutureGroup.POST("/set-new-leverage", setNewLeveragehandler.Handler)
-	// binanceFutureGroup.POST("")
+
+	placeSingleOrderHandler := handler.NewPlaceSinglerOrderHandler(
+		binanceFutureService,
+	)
+	binanceFutureGroup.POST("/place-a-order", placeSingleOrderHandler.Handler)
 	// binanceFutureGroup.POST("")
 }

@@ -9,8 +9,12 @@ import (
 
 type IBinanceFutureExternalService interface {
 	SetNewLeverage(
-		c context.Context,
+		ctx context.Context,
 		request *request.SetLeverageHandlerRequest) (*http.Response, error)
+	PlaceSingleOrder(
+		ctx context.Context,
+		request *request.PlaceSignleOrderHandlerRequest,
+	) (*http.Response, error)
 }
 
 type binanceFutureExternalService struct {

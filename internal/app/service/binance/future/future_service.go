@@ -1,16 +1,9 @@
 package service
 
 import (
-	"context"
-	"tradetoolv2/internal/infrastructure/api/handler/binance/future/request"
+	service "tradetoolv2/internal/app/domain/service/binance"
 	externalservices "tradetoolv2/internal/infrastructure/externalservices/binance/future"
 )
-
-type IBinanceFutureService interface {
-	SetNewLeverage(
-		ctx context.Context,
-		request *request.SetLeverageHandlerRequest) error
-}
 
 type binanceFutureService struct {
 	binanceFutureServiceName string
@@ -20,7 +13,7 @@ type binanceFutureService struct {
 func NewBinanceFutureService(
 	binanceFutureServiceName string,
 	binanceService externalservices.IBinanceFutureExternalService,
-) IBinanceFutureService {
+) service.IBinanceFutureService {
 	return &binanceFutureService{
 		binanceFutureServiceName,
 		binanceService,

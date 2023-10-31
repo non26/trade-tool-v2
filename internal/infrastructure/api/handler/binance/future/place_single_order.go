@@ -9,32 +9,32 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-type ISetNewLeveragehandler interface {
-	GetRequestBody(c echo.Context) (*request.SetLeverageHandlerRequest, error)
+type IPlaceSingleOrderHandler interface {
+	GetRequestBody(c echo.Context) (*request.PlaceSignleOrderHandlerRequest, error)
 	Handler(c echo.Context) error
 }
 
-type setNewLeveragehandler struct {
-	setNewLeverageService service.IBinanceFutureService
+type placeSinglerOrderHandler struct {
+	service service.IBinanceFutureService
 }
 
-func NewsetNewLeveragehandler(
-	setNewLeverageService service.IBinanceFutureService,
-) ISetNewLeveragehandler {
-	return &setNewLeveragehandler{
-		setNewLeverageService,
+func NewPlaceSinglerOrderHandler(
+	service service.IBinanceFutureService,
+) IPlaceSingleOrderHandler {
+	return &placeSinglerOrderHandler{
+		service,
 	}
 }
 
-func (h *setNewLeveragehandler) GetRequestBody(c echo.Context) (*request.SetLeverageHandlerRequest, error) {
-	req := new(request.SetLeverageHandlerRequest)
+func (h *placeSinglerOrderHandler) GetRequestBody(c echo.Context) (*request.PlaceSignleOrderHandlerRequest, error) {
+	req := new(request.PlaceSignleOrderHandlerRequest)
 	if err := c.Bind(req); err != nil {
 		return nil, err
 	}
 	return req, nil
 }
 
-func (h *setNewLeveragehandler) Handler(c echo.Context) error {
+func (h *placeSinglerOrderHandler) Handler(c echo.Context) error {
 
 	request, err := h.GetRequestBody(c)
 	if err != nil {
@@ -48,7 +48,7 @@ func (h *setNewLeveragehandler) Handler(c echo.Context) error {
 		)
 	}
 
-	err = h.setNewLeverageService.SetNewLeverage(
+	res, err := h.service.PlaceSingleOrder(
 		c.Request().Context(),
 		request,
 	)
@@ -68,7 +68,7 @@ func (h *setNewLeveragehandler) Handler(c echo.Context) error {
 		helper.CommonResponse{
 			Code:    helper.SuccessCode,
 			Message: "success",
-			Data:    nil,
+			Data:    res,
 		},
 	)
 }
