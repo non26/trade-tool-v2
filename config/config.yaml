@@ -7,17 +7,17 @@ service-name:
   binance-spot: BNS
 
 secrets:
-  binance-apikey:
-  binance-secretKey:
+  binance-apikey: apikey
+  binance-secretKey: secretkey
 
 binance-future-url:
-  set-leverage:
-  single-order:
-  miltiple-order:
+  set-leverage: /fapi/v1/leverage
+  single-order: /fapi/v1/order
+  miltiple-order: /fapi/v1/batchOrders
   binance-future-baseUrl:
-    binance1:
-    binance2:
-    binance3:
-    binance4:
+    binance1: https://fapi.binance.com
+    # binance2:
+    # binance3:
+    # binance4:
 
 

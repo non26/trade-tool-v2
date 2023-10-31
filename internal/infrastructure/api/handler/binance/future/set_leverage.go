@@ -15,14 +15,14 @@ type ISetNewLeveragehandler interface {
 }
 
 type setNewLeveragehandler struct {
-	setNewLeverageService service.IBinanceFutureService
+	service service.IBinanceFutureService
 }
 
 func NewsetNewLeveragehandler(
-	setNewLeverageService service.IBinanceFutureService,
+	service service.IBinanceFutureService,
 ) ISetNewLeveragehandler {
 	return &setNewLeveragehandler{
-		setNewLeverageService,
+		service,
 	}
 }
 
@@ -48,7 +48,7 @@ func (h *setNewLeveragehandler) Handler(c echo.Context) error {
 		)
 	}
 
-	err = h.setNewLeverageService.SetNewLeverage(
+	err = h.service.SetNewLeverage(
 		c.Request().Context(),
 		request,
 	)

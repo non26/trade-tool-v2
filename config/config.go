@@ -22,9 +22,9 @@ type ServiceName struct {
 
 type BinanceFutureBaseUrl struct {
 	BianceUrl1 string `mapstructure:"binance1"`
-	BianceUrl2 string `mapstructure:"binance2"`
-	BianceUrl3 string `mapstructure:"binance3"`
-	BianceUrl4 string `mapstructure:"binance4"`
+	// BianceUrl2 string `mapstructure:"binance2"`
+	// BianceUrl3 string `mapstructure:"binance3"`
+	// BianceUrl4 string `mapstructure:"binance4"`
 }
 
 type BinanceFutureUrl struct {
@@ -45,8 +45,10 @@ func ReadConfig() (c *AppConfig, err error) {
 	}
 	viper.Unmarshal(&c)
 
-	// if c.Env == "local" {
-	// }
+	if c.Env == "local" {
+		c.BinanceFutureUrl.BinanceFutureBaseUrl.BianceUrl1 = "https://testnet.binancefuture.com"
+		// c.Binance.SpotBaseUrl = "https://testnet.binance.vision"
+	}
 
 	return c, nil
 }
