@@ -20,7 +20,7 @@ func (bfes *binanceFutureExternalService) PlaceSingleOrder(
 	endPoint := bfes.binanceFutureUrl.SingleOrder
 	_url := fmt.Sprintf("%v%v", bfes.binanceFutureUrl.BinanceFutureBaseUrl.BianceUrl1, endPoint)
 
-	t := time.Now().Unix()
+	t := time.Now().Unix() * 1000
 	data := url.Values{}
 	data.Set("symbol", request.Symbol)
 	data.Set("side", request.Side)

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"tradetoolv2/config"
 	service "tradetoolv2/internal/app/service/binance/future"
 	handler "tradetoolv2/internal/infrastructure/api/handler/binance/future"
@@ -42,4 +43,6 @@ func main() {
 	)
 	binanceFutureGroup.POST("/place-a-order", placeSingleOrderHandler.Handler)
 	// binanceFutureGroup.POST("")
+
+	app.Start(fmt.Sprintf(":%v", config.Port))
 }
