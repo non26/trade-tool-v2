@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"net/http"
 	"tradetoolv2/config"
 	service "tradetoolv2/internal/app/service/binance/future"
 	handler "tradetoolv2/internal/infrastructure/api/handler/binance/future"
@@ -21,6 +22,18 @@ func main() {
 	}
 
 	app := echo.New()
+
+	app.GET("/", func(c echo.Context) error {
+		type HealthCheck struct {
+			Message string `json:"message"`
+		}
+		return c.JSON(
+			http.StatusOK,
+			&HealthCheck{
+				Message: "success",
+			},
+		)
+	})
 
 	// binance future
 	binanceFutureGroup := app.Group("/" + config.ServiceName.BinanceFuture)

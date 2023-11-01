@@ -1,4 +1,4 @@
-environment: local
+environment: dev
 
 port: 8080
 
