@@ -1,0 +1,3 @@
+GOOS=linux GOARCH=amd64 go build -o application ./.
+docker build --rm -t tradetoolv2:alpha .
+cd ./cmd/myapp && go build -o goapp ./cmd/myapp
