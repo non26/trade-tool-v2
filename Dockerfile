@@ -5,7 +5,8 @@ WORKDIR /app
 COPY . .
 
 RUN go mod download
-RUN go build -o goapp ./cmd/myapp
+# for light sail container
+RUN GOOS=linux GOARCH=amd64 go build -o goapp ./cmd/myapp
 # RUN go build -o goapp
 
 EXPOSE 8080
