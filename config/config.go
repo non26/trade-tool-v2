@@ -8,16 +8,22 @@ type AppConfig struct {
 	ServiceName      ServiceName      `mapstructure:"service-name"`
 	Secrets          Secrets          `mapstructure:"secrets"`
 	BinanceFutureUrl BinanceFutureUrl `mapstructure:"binance-future-url"`
+	OkxFutureUrl     BinanceFutureUrl `mapstructure:"okx-future-url"`
 }
 
 type Secrets struct {
-	BinanceApiKey    string `mapstructure:"binance-apiKey"`
-	BinanceSecretKey string `mapstructure:"binance-secretKey"`
+	BinanceApiKey      string `mapstructure:"binance-apiKey"`
+	BinanceSecretKey   string `mapstructure:"binance-secretKey"`
+	OkxApiKey          string `mapstructure:"okx-apiKey"`
+	OkxSecretKey       string `mapstructure:"okx-secretKey"`
+	OkxSecretPassPhase string `mapstructure:"okx-passPhase"`
 }
 
 type ServiceName struct {
 	BinanceFuture string `mapstructure:"binance-future"`
 	BinanceSpot   string `mapstructure:"binance-spot"`
+	OKXFuture     string `mapstructure:"okx-future"`
+	OKXSpot       string `mapstructure:"okx-spot"`
 }
 
 type BinanceFutureBaseUrl struct {
@@ -32,6 +38,17 @@ type BinanceFutureUrl struct {
 	SingleOrder          string               `mapstructure:"single-order"`
 	MultipleOrder        string               `mapstructure:"miltiple-order"`
 	BinanceFutureBaseUrl BinanceFutureBaseUrl `mapstructure:"binance-future-baseUrl"`
+}
+
+type OkxFutureBaseUrl struct {
+	Okx1 string `mapstructure:"okx1"`
+}
+
+type OkxFutureUrl struct {
+	SetLeverage        string           `mapstructure:"set-leverage"`
+	PlaceAPosition     string           `mapstructure:"place-position"`
+	PlaceMultiPosition string           `mapstructure:"multi-position"`
+	OkxFutureBaseUrl   OkxFutureBaseUrl `mapstructure:"okx-future-baseUrl"`
 }
 
 func ReadConfig() (c *AppConfig, err error) {
