@@ -5,8 +5,11 @@ import (
 	"net/http"
 	"tradetoolv2/config"
 	service "tradetoolv2/internal/app/service/binance/future"
+	okxservice "tradetoolv2/internal/app/service/okx/future"
 	handler "tradetoolv2/internal/infrastructure/api/handler/binance/future"
+	okxhandler "tradetoolv2/internal/infrastructure/api/handler/okx/future"
 	externalservices "tradetoolv2/internal/infrastructure/externalservices/binance/future"
+	okxexternalservices "tradetoolv2/internal/infrastructure/externalservices/okx/future"
 
 	"github.com/labstack/echo/v4"
 )
@@ -55,7 +58,23 @@ func main() {
 		binanceFutureService,
 	)
 	binanceFutureGroup.POST("/place-a-order", placeSingleOrderHandler.Handler)
-	// binanceFutureGroup.POST("")
+
+	// okx future
+	okxFutureGroup := app.Group("/" + config.ServiceName.OKXFuture)
+	okxFutureExternalService := okxexternalservices.NewOKXFutureExternalService(
+		&config.OkxFutureUrl,
+		&config.Secrets,
+		config.Env,
+	)
+	okxService := okxservice.NewOkxService(
+		okxFutureExternalService,
+	)
+
+	okx1 := okxhandler.NewPlaceSinglePositionHandler(okxService)
+	okxFutureGroup.POST(
+		"/placeSinglePosition",
+		okx1.Handler,
+	)
 
 	app.Start(fmt.Sprintf(":%v", config.Port))
 }

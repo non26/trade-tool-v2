@@ -20,13 +20,13 @@ type IOKXFutureExternalService interface {
 }
 
 type okxFutureExternalService struct {
-	okxFutureUrl *config.OkxFutureBaseUrl
+	okxFutureUrl *config.OkxFutureUrl
 	secret       *config.Secrets
 	env          string
 }
 
 func NewOKXFutureExternalService(
-	okxFutureUrl *config.OkxFutureBaseUrl,
+	okxFutureUrl *config.OkxFutureUrl,
 	secret *config.Secrets,
 	env string,
 ) IOKXFutureExternalService {

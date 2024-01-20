@@ -12,7 +12,6 @@ func GenerateHeaders(
 	method string,
 	requestPath string,
 	body string,
-	contentType string,
 	env string,
 	secrets *config.Secrets,
 ) *http.Request {

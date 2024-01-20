@@ -6,9 +6,12 @@ COPY . .
 
 RUN go mod download
 # for light sail container
-RUN GOOS=linux GOARCH=amd64 go build -o goapp ./cmd/myapp
-# RUN go build -o goapp
+# RUN GOOS=linux GOARCH=amd64 go build -o goapp ./cmd/myapp
+
+# for local
+RUN go build -o goapp ./cmd/myapp
 
 EXPOSE 8080
+
 
 CMD [ "./goapp" ]

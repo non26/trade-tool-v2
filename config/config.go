@@ -8,7 +8,7 @@ type AppConfig struct {
 	ServiceName      ServiceName      `mapstructure:"service-name"`
 	Secrets          Secrets          `mapstructure:"secrets"`
 	BinanceFutureUrl BinanceFutureUrl `mapstructure:"binance-future-url"`
-	OkxFutureUrl     BinanceFutureUrl `mapstructure:"okx-future-url"`
+	OkxFutureUrl     OkxFutureUrl     `mapstructure:"okx-future-url"`
 }
 
 type Secrets struct {
