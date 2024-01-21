@@ -13,8 +13,8 @@ type IOKXFutureExternalService interface {
 		body *entity.SetLeverageFuture,
 	) (*entity.SetLeverageFuture, error)
 	PlaceASinglePosition(
-		body *request.PlaceASinglePositionOKXServiceRequest,
-	) (*http.Response, error)
+		body *entity.PlaceSingleOrderEntity,
+	) (*entity.PlaceOrderEntity, error)
 	PlaceMultiplePosition(
 		body *request.PlaceMultiplePositionOKXServiceRequest,
 	) (*http.Response, error)

@@ -1,40 +1,38 @@
 package helper
 
 import (
-	"bytes"
 	"encoding/json"
 	"errors"
 	"fmt"
 	"net/http"
+	"reflect"
 )
 
 func ToQueryParameter(s interface{}) string {
-	// structType := reflect.TypeOf(s)
-	// valueOfStruct := reflect.ValueOf(s)
-	// queryParam := ""
-	// numberOfField := structType.NumField()
+	structType := reflect.TypeOf(s)
+	valueOfStruct := reflect.ValueOf(s)
+	queryParam := ""
+	numberOfField := structType.NumField()
 
-	// for idx := 0; idx < numberOfField; idx++ {
-	// 	tag := structType.Field(idx).Tag.Get("json")
-	// 	structFieldValue := valueOfStruct.Field(idx)
-	// 	if idx == numberOfField-1 {
-	// 		queryParam += fmt.Sprintf("%v=%v", tag, structFieldValue)
-	// 		break
-	// 	}
-	// 	queryParam += fmt.Sprintf("%v=%v&", tag, structFieldValue)
+	for idx := 0; idx < numberOfField; idx++ {
+		tag := structType.Field(idx).Tag.Get("json")
+		structFieldValue := valueOfStruct.Field(idx)
+		if idx == numberOfField-1 {
+			queryParam += fmt.Sprintf("%v=%v", tag, structFieldValue)
+			break
+		}
+		queryParam += fmt.Sprintf("%v=%v&", tag, structFieldValue)
 
-	// }
-	// return queryParam
-	b, _ := json.Marshal(s)
-	return string(b)
+	}
+	return queryParam
 }
 
-func StructToJson(s interface{}) (*bytes.Reader, error) {
+func StructToJson(s interface{}) ([]byte, error) {
 	j, err := json.Marshal(s)
 	if err != nil {
 		return nil, err
 	}
-	return bytes.NewReader(j), nil
+	return j, nil
 }
 
 func AddInstIdUSDTSWAPPostfix(instId string) string {

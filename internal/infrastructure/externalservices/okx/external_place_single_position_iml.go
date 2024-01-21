@@ -1,25 +1,35 @@
 package externalservices
 
 import (
+	"bytes"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"net/http"
+	entity "tradetoolv2/internal/app/domain/entity/okx"
+	helper "tradetoolv2/internal/helper/okx_helper"
 	okxhelper "tradetoolv2/internal/helper/okx_helper"
 	"tradetoolv2/internal/infrastructure/externalservices/okx/request"
+	"tradetoolv2/internal/infrastructure/externalservices/okx/response"
 )
 
 func (o *okxFutureExternalService) PlaceASinglePosition(
-	body *request.PlaceASinglePositionOKXServiceRequest,
-) (*http.Response, error) {
+	e *entity.PlaceSingleOrderEntity,
+) (*entity.PlaceOrderEntity, error) {
+
+	body := &request.PlaceASinglePositionOKXServiceRequest{}
+	body.ToPlaceSingleOrderRequest(e)
+	body.InstId = helper.AddInstIdUSDTSWAPPostfix(body.InstId)
+
 	_endPoint := o.okxFutureUrl.PlaceAPosition
-	_url := fmt.Sprint("%v%v", o.okxFutureUrl.OkxFutureBaseUrl.Okx1, _endPoint)
+	_url := fmt.Sprintf("%v%v", o.okxFutureUrl.OkxFutureBaseUrl.Okx1, _endPoint)
 	_method := http.MethodPost
 	_body, err := okxhelper.StructToJson(body)
 	if err != nil {
 		return nil, err
 	}
 
-	req, err := http.NewRequest(_method, _url, _body)
+	req, err := http.NewRequest(_method, _url, bytes.NewReader(_body))
 	if err != nil {
 		return nil, errors.New("OKX-PlaceSingleOrder Request Error: " + err.Error())
 	}
@@ -27,7 +37,7 @@ func (o *okxFutureExternalService) PlaceASinglePosition(
 		req,
 		_method,
 		_endPoint,
-		okxhelper.ToQueryParameter(body),
+		string(_body),
 		o.env,
 		o.secret,
 	)
@@ -41,6 +51,19 @@ func (o *okxFutureExternalService) PlaceASinglePosition(
 	if err != nil {
 		return nil, errors.New("OKX-PlaceSingleOrder Response Error: " + err.Error())
 	}
+	defer res.Body.Close()
 
-	return res, nil
+	decodeResBody := &response.CommonOKXServiceResponse{}
+	err = json.NewDecoder(res.Body).Decode(decodeResBody)
+	if err != nil {
+		return nil, errors.New("OKX-PlaceSingleOrder Decode Error: " + err.Error())
+	}
+
+	err = helper.OkxConditionResponseError(res.StatusCode, decodeResBody.Code, decodeResBody.Message)
+	if err != nil {
+		return nil, err
+	}
+
+	r := decodeResBody.Data.(*entity.PlaceOrderEntity)
+	return r, nil
 }

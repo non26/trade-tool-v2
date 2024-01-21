@@ -1,6 +1,7 @@
 package externalservices
 
 import (
+	"bytes"
 	"errors"
 	"fmt"
 	"net/http"
@@ -19,7 +20,7 @@ func (o *okxFutureExternalService) PlaceMultiplePosition(
 		return nil, err
 	}
 
-	req, err := http.NewRequest(_method, _url, _body)
+	req, err := http.NewRequest(_method, _url, bytes.NewReader(_body))
 	if err != nil {
 		return nil, errors.New("OKX-PlaceMultipleOrder Request Error: " + err.Error())
 	}
@@ -27,7 +28,7 @@ func (o *okxFutureExternalService) PlaceMultiplePosition(
 		req,
 		_method,
 		_endPoint,
-		okxhelper.ToQueryParameter(body),
+		string(_body),
 		o.env,
 		o.secret,
 	)

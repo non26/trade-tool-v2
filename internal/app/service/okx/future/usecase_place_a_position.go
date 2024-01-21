@@ -1,34 +1,14 @@
 package service
 
 import (
-	handlerrequest "tradetoolv2/internal/infrastructure/api/handler/okx/future/request"
-	"tradetoolv2/internal/infrastructure/externalservices/okx/request"
+	entity "tradetoolv2/internal/app/domain/entity/okx"
 )
 
-func (o *okxFutureService) PlaceAPosition(req *handlerrequest.PlaceASinglePositionHandlerRequest) error {
-	body := request.PlaceASinglePositionOKXServiceRequest{
-		InstId:  req.InstId,
-		TdMode:  req.TdMode,
-		Side:    req.Side,
-		PosSide: req.PosSide,
-		OrdType: req.OrdType,
-		Sz:      req.Sz,
-	}
-	httpRes, err := o.okxExtService.PlaceASinglePosition(&body)
+func (o *okxFutureService) PlaceAPosition(req *entity.PlaceSingleOrderEntity) (*entity.PlaceOrderEntity, error) {
+	data, err := o.okxExtService.PlaceASinglePosition(req)
 	if err != nil {
-		return err
+		return nil, err
 	}
-	defer httpRes.Body.Close()
 
-	// resBody := *response.NewOkxCommonHandlerResponse(&response.PlacePositionHandlerResponse{})
-	// err = json.NewDecoder(httpRes.Body).Decode(resBody)
-	// if err != nil {
-	// 	return err
-	// }
-
-	// if resBody.IsCodeError() {
-	// 	return errors.New(fmt.Sprintf("OKX - Return Code %v", resBody.Code))
-	// }
-
-	return nil
+	return data, nil
 }

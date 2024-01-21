@@ -1,6 +1,7 @@
 package externalservices
 
 import (
+	"bytes"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -15,9 +16,11 @@ import (
 func (o *okxFutureExternalService) SetLeverage(
 	e *entity.SetLeverageFuture,
 ) (*entity.SetLeverageFuture, error) {
+
 	body := request.SetNewLeverageOKXServiceRequest{}
 	body.ToSetNewLeverageRequest(e)
 	body.InstId = helper.AddInstIdUSDTSWAPPostfix(body.InstId)
+
 	_endPoint := o.okxFutureUrl.SetLeverage
 	_url := fmt.Sprintf("%v%v", o.okxFutureUrl.OkxFutureBaseUrl.Okx1, _endPoint)
 	_method := http.MethodPost
@@ -25,7 +28,8 @@ func (o *okxFutureExternalService) SetLeverage(
 	if err != nil {
 		return nil, err
 	}
-	req, err := http.NewRequest(_method, _url, _body)
+
+	req, err := http.NewRequest(_method, _url, bytes.NewReader(_body))
 	if err != nil {
 		return nil, errors.New("OKX-SetLeverage Request Error: " + err.Error())
 	}
@@ -33,7 +37,7 @@ func (o *okxFutureExternalService) SetLeverage(
 		req,
 		_method,
 		_endPoint,
-		okxhelper.ToQueryParameter(body),
+		string(_body),
 		o.env,
 		o.secret,
 	)
@@ -52,7 +56,7 @@ func (o *okxFutureExternalService) SetLeverage(
 	decodeResBody := &response.CommonOKXServiceResponse{}
 	err = json.NewDecoder(res.Body).Decode(decodeResBody)
 	if err != nil {
-		return nil, errors.New("OKX-SetLeverage Body Error: " + err.Error())
+		return nil, errors.New("OKX-SetLeverage Decode Error: " + err.Error())
 	}
 	err = helper.OkxConditionResponseError(res.StatusCode, decodeResBody.Code, decodeResBody.Message)
 	if err != nil {

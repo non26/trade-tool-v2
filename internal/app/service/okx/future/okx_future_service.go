@@ -7,7 +7,7 @@ import (
 )
 
 type IOkxFutureService interface {
-	PlaceAPosition(req *request.PlaceASinglePositionHandlerRequest) error
+	PlaceAPosition(req *entity.PlaceSingleOrderEntity) (*entity.PlaceOrderEntity, error)
 	PlaceMultiplePosition(req *request.PlaceMultiplePositionHandlerRequest) error
 	SetNewLeverage(data *entity.SetLeverageFuture) (*entity.SetLeverageFuture, error)
 }

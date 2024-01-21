@@ -3,13 +3,13 @@ package handler
 import (
 	"net/http"
 	service "tradetoolv2/internal/app/service/okx/future"
+	helper "tradetoolv2/internal/helper/service_response"
 	"tradetoolv2/internal/infrastructure/api/handler/okx/future/request"
 
 	"github.com/labstack/echo/v4"
 )
 
 type IPlaceSinglePositionHandler interface {
-	GetBody(c echo.Context) (*request.PlaceASinglePositionHandlerRequest, error)
 	Handler(c echo.Context) error
 }
 
@@ -25,33 +25,36 @@ func NewPlaceSinglePositionHandler(
 	}
 }
 
-func (p *placeSinglePositionHandler) GetBody(c echo.Context) (*request.PlaceASinglePositionHandlerRequest, error) {
+func (p *placeSinglePositionHandler) Handler(c echo.Context) error {
 	body := new(request.PlaceASinglePositionHandlerRequest)
 	err := c.Bind(body)
 	if err != nil {
-		return nil, err
-	}
-	return body, nil
-}
-
-func (p *placeSinglePositionHandler) Handler(c echo.Context) error {
-	body, err := p.GetBody(c)
-	if err != nil {
 		return c.JSON(
 			http.StatusBadRequest,
-			nil,
+			&helper.CommonResponse{
+				Code:    helper.FailCode,
+				Message: err.Error(),
+			},
 		)
 	}
 
-	err = p.service.PlaceAPosition(body)
+	data, err := p.service.PlaceAPosition(body.ToPlaceSingleOrderEntity())
 	if err != nil {
 		return c.JSON(
 			http.StatusInternalServerError,
-			nil,
+			&helper.CommonResponse{
+				Code:    helper.FailCode,
+				Message: err.Error(),
+			},
 		)
 	}
+
 	return c.JSON(
 		http.StatusOK,
-		nil,
+		&helper.CommonResponse{
+			Code:    helper.SuccessCode,
+			Message: "Success",
+			Data:    data,
+		},
 	)
 }
