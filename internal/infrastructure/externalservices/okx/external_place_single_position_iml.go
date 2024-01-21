@@ -5,14 +5,14 @@ import (
 	"fmt"
 	"net/http"
 	okxhelper "tradetoolv2/internal/helper/okx_helper"
-	"tradetoolv2/internal/infrastructure/externalservices/okx/future/request"
+	"tradetoolv2/internal/infrastructure/externalservices/okx/request"
 )
 
-func (o *okxFutureExternalService) PlaceMultiplePosition(
-	body *request.PlaceMultiplePositionOKXServiceRequest,
+func (o *okxFutureExternalService) PlaceASinglePosition(
+	body *request.PlaceASinglePositionOKXServiceRequest,
 ) (*http.Response, error) {
-	_endPoint := o.okxFutureUrl.PlaceMultiPosition
-	_url := fmt.Sprintf("%v%v", o.okxFutureUrl.OkxFutureBaseUrl.Okx1, _endPoint)
+	_endPoint := o.okxFutureUrl.PlaceAPosition
+	_url := fmt.Sprint("%v%v", o.okxFutureUrl.OkxFutureBaseUrl.Okx1, _endPoint)
 	_method := http.MethodPost
 	_body, err := okxhelper.StructToJson(body)
 	if err != nil {
@@ -21,7 +21,7 @@ func (o *okxFutureExternalService) PlaceMultiplePosition(
 
 	req, err := http.NewRequest(_method, _url, _body)
 	if err != nil {
-		return nil, errors.New("OKX-PlaceMultipleOrder Request Error: " + err.Error())
+		return nil, errors.New("OKX-PlaceSingleOrder Request Error: " + err.Error())
 	}
 	req = okxhelper.GenerateHeaders(
 		req,
@@ -39,7 +39,7 @@ func (o *okxFutureExternalService) PlaceMultiplePosition(
 	var res *http.Response
 	res, err = client.Do(req)
 	if err != nil {
-		return nil, errors.New("OKX-PlaceMultipleOrder Response Error: " + err.Error())
+		return nil, errors.New("OKX-PlaceSingleOrder Response Error: " + err.Error())
 	}
 
 	return res, nil

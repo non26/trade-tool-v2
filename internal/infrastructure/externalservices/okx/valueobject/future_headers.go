@@ -1,4 +1,4 @@
-package entity
+package valueobject
 
 type okxExternalServiceHeaders struct {
 	AccessKeyHeader  string

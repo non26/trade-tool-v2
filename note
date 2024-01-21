@@ -1,3 +1,11 @@
 GOOS=linux GOARCH=amd64 go build -o application ./.
 docker build --rm -t tradetoolv2:alpha .
 cd ./cmd/myapp && go build -o goapp ./cmd/myapp
+
+okx 
+apikey = "91af25b9-10e9-4c4c-80fe-e1329197cf7c"
+secretkey = "8A8B8466AABD4428D8CDC976C4D6C6E0"
+IP = ""
+API name = "demo"
+Permissions = "Read/Trade"
+pp = "DemoTrading@0kx"

@@ -3,14 +3,15 @@ package externalservices
 import (
 	"net/http"
 	"tradetoolv2/config"
-	"tradetoolv2/internal/infrastructure/externalservices/okx/future/request"
+	entity "tradetoolv2/internal/app/domain/entity/okx"
+	"tradetoolv2/internal/infrastructure/externalservices/okx/request"
 )
 
 type IOKXFutureExternalService interface {
 	// GetLeverage() (*http.Response, error)
 	SetLeverage(
-		body *request.SetNewLeverageOKXServiceRequest,
-	) (*http.Response, error)
+		body *entity.SetLeverageFuture,
+	) (*entity.SetLeverageFuture, error)
 	PlaceASinglePosition(
 		body *request.PlaceASinglePositionOKXServiceRequest,
 	) (*http.Response, error)

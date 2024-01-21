@@ -9,6 +9,10 @@ type AppConfig struct {
 	Secrets          Secrets          `mapstructure:"secrets"`
 	BinanceFutureUrl BinanceFutureUrl `mapstructure:"binance-future-url"`
 	OkxFutureUrl     OkxFutureUrl     `mapstructure:"okx-future-url"`
+	OKXSpotUrl       OKXSpotUrl       `mapstructure:"okx-spot-url"`
+	KCFutureUrl      KCFutureUrl      `mapstructure:"kucoin-future-url"`
+	KCSpotUrl        KCSpotUrl        `mapstructure:"kucoin-spot-url"`
+	KubSpotUrl       KubSpotUrl       `mapstructure:"kub-spot-url"`
 }
 
 type Secrets struct {
@@ -24,6 +28,9 @@ type ServiceName struct {
 	BinanceSpot   string `mapstructure:"binance-spot"`
 	OKXFuture     string `mapstructure:"okx-future"`
 	OKXSpot       string `mapstructure:"okx-spot"`
+	KucoinFuture  string `mapstructure:"kucoin-future"`
+	KucoinSpot    string `mapstructure:"kucoin-spot"`
+	KubSpot       string `mapstructure:"kub-spot"`
 }
 
 type BinanceFutureBaseUrl struct {
@@ -50,6 +57,11 @@ type OkxFutureUrl struct {
 	PlaceMultiPosition string           `mapstructure:"multi-position"`
 	OkxFutureBaseUrl   OkxFutureBaseUrl `mapstructure:"okx-future-baseUrl"`
 }
+
+type OKXSpotUrl struct{}
+type KCFutureUrl struct{}
+type KCSpotUrl struct{}
+type KubSpotUrl struct{}
 
 func ReadConfig() (c *AppConfig, err error) {
 	viper.SetConfigName("config")

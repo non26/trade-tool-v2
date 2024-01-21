@@ -9,7 +9,7 @@ import (
 	handler "tradetoolv2/internal/infrastructure/api/handler/binance/future"
 	okxhandler "tradetoolv2/internal/infrastructure/api/handler/okx/future"
 	externalservices "tradetoolv2/internal/infrastructure/externalservices/binance/future"
-	okxexternalservices "tradetoolv2/internal/infrastructure/externalservices/okx/future"
+	okxexternalservices "tradetoolv2/internal/infrastructure/externalservices/okx"
 
 	"github.com/labstack/echo/v4"
 )
@@ -74,6 +74,12 @@ func main() {
 	okxFutureGroup.POST(
 		"/placeSinglePosition",
 		okx1.Handler,
+	)
+
+	okx2 := okxhandler.NewSetLeverage(okxService)
+	okxFutureGroup.POST(
+		"/setLeverage",
+		okx2.Handler,
 	)
 
 	app.Start(fmt.Sprintf(":%v", config.Port))

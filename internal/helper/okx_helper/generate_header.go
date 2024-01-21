@@ -1,4 +1,4 @@
-package okxhelper
+package helper
 
 import (
 	"net/http"

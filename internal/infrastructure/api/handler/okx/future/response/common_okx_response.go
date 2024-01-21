@@ -8,9 +8,8 @@ type OkxCommonHandlerResponse struct {
 	OutTime string      `json:"outTime"`
 }
 
-func NewOkxCommonHandlerResponse(data interface{}) *OkxCommonHandlerResponse {
+func NewOkxCommonHandlerResponse() *OkxCommonHandlerResponse {
 	o := OkxCommonHandlerResponse{}
-	o.Data = data
 	return &o
 }
 

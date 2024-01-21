@@ -7,13 +7,16 @@ service-name:
   binance-spot: BNS
   okx-future: OKXF
   okx-spot: OKXS
+  kucoin-future: KCF
+  kucoin-spot: KCS
+  kub-spot: BKS
 
 secrets:
   binance-apikey:
   binance-secretKey:
-  okx-apiKey:
-  okx-secretKey:
-  okx-passPhase:
+  okx-apiKey: 91af25b9-10e9-4c4c-80fe-e1329197cf7c
+  okx-secretKey: 8A8B8466AABD4428D8CDC976C4D6C6E0
+  okx-passPhase: DemoTrading@0kx
 
 binance-future-url:
   set-leverage: /fapi/v1/leverage
@@ -33,3 +36,8 @@ okx-future-url:
     okx1: https://www.okx.com
 
 okx-spot-url:
+
+kucoin-spot-url:
+kucoin-future-url:
+
+kub-spot-url:

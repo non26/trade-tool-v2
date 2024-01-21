@@ -1,12 +1,8 @@
 package service
 
 import (
-	"encoding/json"
-	"errors"
-	"fmt"
 	handlerrequest "tradetoolv2/internal/infrastructure/api/handler/okx/future/request"
-	"tradetoolv2/internal/infrastructure/api/handler/okx/future/response"
-	"tradetoolv2/internal/infrastructure/externalservices/okx/future/request"
+	"tradetoolv2/internal/infrastructure/externalservices/okx/request"
 )
 
 func (o *okxFutureService) PlaceAPosition(req *handlerrequest.PlaceASinglePositionHandlerRequest) error {
@@ -24,15 +20,15 @@ func (o *okxFutureService) PlaceAPosition(req *handlerrequest.PlaceASinglePositi
 	}
 	defer httpRes.Body.Close()
 
-	resBody := *response.NewOkxCommonHandlerResponse(&response.PlacePositionHandlerResponse{})
-	err = json.NewDecoder(httpRes.Body).Decode(resBody)
-	if err != nil {
-		return err
-	}
+	// resBody := *response.NewOkxCommonHandlerResponse(&response.PlacePositionHandlerResponse{})
+	// err = json.NewDecoder(httpRes.Body).Decode(resBody)
+	// if err != nil {
+	// 	return err
+	// }
 
-	if resBody.IsCodeError() {
-		return errors.New(fmt.Sprintf("OKX - Return Code %v", resBody.Code))
-	}
+	// if resBody.IsCodeError() {
+	// 	return errors.New(fmt.Sprintf("OKX - Return Code %v", resBody.Code))
+	// }
 
 	return nil
 }

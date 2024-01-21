@@ -1,7 +1,14 @@
 package service
 
-import "tradetoolv2/internal/infrastructure/api/handler/okx/future/request"
+import entity "tradetoolv2/internal/app/domain/entity/okx"
 
-func (o *okxFutureService) SetNewLeverage(req *request.SetNewLeverageHandlerRequest) error {
-	return nil
+func (o *okxFutureService) SetNewLeverage(data *entity.SetLeverageFuture) (*entity.SetLeverageFuture, error) {
+	e, err := o.okxExtService.SetLeverage(
+		data,
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	return e, nil
 }
