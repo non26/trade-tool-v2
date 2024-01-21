@@ -10,34 +10,36 @@ import (
 )
 
 func GenerateKeyHeader(k string) (key string) {
-	return key
+	return k
 }
 
 /*
 Sign the prehash string with the SecretKey using the HMAC SHA256.
 */
-func GenerateSignHeader(tStp time.Time, method string, requestPath string, body string, sk string) (signBase64 string) {
-	queryString := fmt.Sprintf("%v?%v", requestPath, body)
-	t := GenerateTimeHeader(tStp)
-	s := fmt.Sprintf("%v%v%v%v", t, strings.ToUpper(method), queryString, sk)
-	signHmacSHA256 := hmac.New(sha256.New, []byte(s))
-	signBase64 = base64.RawURLEncoding.EncodeToString(signHmacSHA256.Sum(nil))
+func GenerateSignHeader(tStp string, method string, requestPath string, body string, sk string) (signBase64 string) {
+	queryString := fmt.Sprintf("%v%v", requestPath, body)
+	s := fmt.Sprintf("%v%v%v", tStp, strings.ToUpper(method), queryString)
+	mac := hmac.New(sha256.New, []byte(sk))
+	_, _ = mac.Write([]byte(s))
+	signBase64 = base64.StdEncoding.EncodeToString(mac.Sum(nil))
 	return signBase64
 }
 
 /*
 time show as UTC
+2006-01-02T03:04:05.000Z
+tISOWithMiliSec := tStp.UTC().Format("2006-01-02T03:04:05.000Z")
 */
-func GenerateTimeHeader(tStp time.Time) (timeStamp string) {
-	tUtc := tStp.UTC()
-	return tUtc.String()
+func GenerateTimeHeader() (timeStamp string) {
+	tISOWithMiliSec := time.Now().UTC().Format("2006-01-02T03:04:05.000Z")
+	return tISOWithMiliSec
 }
 
 /*
 The passphrase you specified when creating the APIKey.
 */
 func GeneratePassPhaseHeader(pp string) (passPhase string) {
-	return passPhase
+	return pp
 }
 
 /*

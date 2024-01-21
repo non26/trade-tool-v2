@@ -9,3 +9,7 @@ IP = ""
 API name = "demo"
 Permissions = "Read/Trade"
 pp = "DemoTrading@0kx"
+
+"2024-01-21T09:53:14.020ZPOST/api/v5/account/set-leverage?instId=BTC-USDT&lever=5&mgnMode=cross8A8B8466AABD4428D8CDC976C4D6C6E0"
+
+"2024-01-21T10:32:27.382ZPOST/api/v5/account/set-leverage{\"instId\":\"BTC-USDT\",\"lever\":\"5\",\"mgnMode\":\"cross\"}"

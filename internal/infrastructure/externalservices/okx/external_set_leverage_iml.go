@@ -17,9 +17,9 @@ func (o *okxFutureExternalService) SetLeverage(
 ) (*entity.SetLeverageFuture, error) {
 	body := request.SetNewLeverageOKXServiceRequest{}
 	body.ToSetNewLeverageRequest(e)
-	body.InstId = helper.AddInstIdUSDTPostfix(body.InstId)
+	body.InstId = helper.AddInstIdUSDTSWAPPostfix(body.InstId)
 	_endPoint := o.okxFutureUrl.SetLeverage
-	_url := fmt.Sprintf("%v%v", o.okxFutureUrl.OkxFutureBaseUrl, _endPoint)
+	_url := fmt.Sprintf("%v%v", o.okxFutureUrl.OkxFutureBaseUrl.Okx1, _endPoint)
 	_method := http.MethodPost
 	_body, err := okxhelper.StructToJson(body)
 	if err != nil {

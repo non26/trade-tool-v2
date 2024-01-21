@@ -3,7 +3,6 @@ package helper
 import (
 	"net/http"
 	"strings"
-	"time"
 	"tradetoolv2/config"
 )
 
@@ -15,14 +14,15 @@ func GenerateHeaders(
 	env string,
 	secrets *config.Secrets,
 ) *http.Request {
-	t := time.Now()
+	t := GenerateTimeHeader()
 	req.Header.Add("OK-ACCESS-KEY", GenerateKeyHeader(secrets.OkxApiKey))
 	req.Header.Add("OK-ACCESS-SIGN", GenerateSignHeader(t, method, requestPath, body, secrets.OkxSecretKey))
-	req.Header.Add("OK-ACCESS-TIMESTAMP", GenerateTimeHeader(t))
+	req.Header.Add("OK-ACCESS-TIMESTAMP", t)
 	req.Header.Add("OK-ACCESS-PASSPHRASE", GeneratePassPhaseHeader(secrets.OkxSecretPassPhase))
 	switch method {
 	case http.MethodPost:
 		req.Header.Add("Content-Type", "application/json")
+		req.Header.Add("accept", "application/json")
 	default:
 		break
 	}
