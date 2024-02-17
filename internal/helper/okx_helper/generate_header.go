@@ -1,8 +1,10 @@
 package helper
 
 import (
+	"fmt"
 	"net/http"
 	"strings"
+	"time"
 	"tradetoolv2/config"
 )
 
@@ -19,6 +21,7 @@ func GenerateHeaders(
 	req.Header.Add("OK-ACCESS-SIGN", GenerateSignHeader(t, method, requestPath, body, secrets.OkxSecretKey))
 	req.Header.Add("OK-ACCESS-TIMESTAMP", t)
 	req.Header.Add("OK-ACCESS-PASSPHRASE", GeneratePassPhaseHeader(secrets.OkxSecretPassPhase))
+	req.Header.Add("expTime", fmt.Sprint(time.Now().Add(3*time.Second).UnixMilli()))
 	switch method {
 	case http.MethodPost:
 		req.Header.Add("Content-Type", "application/json")

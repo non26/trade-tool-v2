@@ -49,3 +49,21 @@ func OkxConditionResponseError(httpCode int, okxCode string, okxMsg string) erro
 	}
 	return nil
 }
+
+func ResponseToStruct[k comparable](s []k, mp []interface{}) ([]k, error) {
+	for _, d := range mp {
+		m := d.(map[string]interface{})
+		e := new(k)
+		jsonData, err := json.Marshal(m)
+		if err != nil {
+			return nil, err
+		}
+		err = json.Unmarshal(jsonData, e)
+		if err != nil {
+			return nil, err
+		}
+		s = append(s, *e)
+	}
+
+	return s, nil
+}

@@ -15,7 +15,7 @@ import (
 
 func (o *okxFutureExternalService) SetLeverage(
 	e *entity.SetLeverageFuture,
-) (*entity.SetLeverageFuture, error) {
+) ([]entity.SetLeverageFuture, error) {
 
 	body := request.SetNewLeverageOKXServiceRequest{}
 	body.ToSetNewLeverageRequest(e)
@@ -63,6 +63,10 @@ func (o *okxFutureExternalService) SetLeverage(
 		return nil, err
 	}
 
-	e = decodeResBody.Data.(*entity.SetLeverageFuture)
-	return e, nil
+	eSetLeverage := []entity.SetLeverageFuture{}
+	eSetLeverage, err = helper.ResponseToStruct[entity.SetLeverageFuture](eSetLeverage, decodeResBody.Data)
+	if err != nil {
+		return nil, err
+	}
+	return eSetLeverage, nil
 }

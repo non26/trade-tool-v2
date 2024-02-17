@@ -78,3 +78,6 @@ Let's break down the structure and the purpose of each directory:
 11.README.md: Include project documentation, as usual.
 
 12.go.mod and go.sum: Use these files to manage dependencies and versions.
+
+
+OKX -> "http=200&code=1&msg=All operations failed", this is because there's not enough money available

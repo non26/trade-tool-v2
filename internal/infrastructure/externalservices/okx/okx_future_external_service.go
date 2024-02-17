@@ -11,7 +11,7 @@ type IOKXFutureExternalService interface {
 	// GetLeverage() (*http.Response, error)
 	SetLeverage(
 		body *entity.SetLeverageFuture,
-	) (*entity.SetLeverageFuture, error)
+	) ([]entity.SetLeverageFuture, error)
 	PlaceASinglePosition(
 		body *entity.PlaceSingleOrderEntity,
 	) (*entity.PlaceOrderEntity, error)

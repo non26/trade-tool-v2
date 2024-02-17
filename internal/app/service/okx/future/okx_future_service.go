@@ -9,7 +9,7 @@ import (
 type IOkxFutureService interface {
 	PlaceAPosition(req *entity.PlaceSingleOrderEntity) (*entity.PlaceOrderEntity, error)
 	PlaceMultiplePosition(req *request.PlaceMultiplePositionHandlerRequest) error
-	SetNewLeverage(data *entity.SetLeverageFuture) (*entity.SetLeverageFuture, error)
+	SetNewLeverage(data *entity.SetLeverageFuture) ([]entity.SetLeverageFuture, error)
 }
 
 type okxFutureService struct {

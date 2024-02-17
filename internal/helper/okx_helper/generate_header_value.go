@@ -31,9 +31,20 @@ time show as UTC
 tISOWithMiliSec := tStp.UTC().Format("2006-01-02T03:04:05.000Z")
 */
 func GenerateTimeHeader() (timeStamp string) {
-	tISOWithMiliSec := time.Now().UTC().Format("2006-01-02T03:04:05.000Z")
-	return tISOWithMiliSec
+	// tISOWithMiliSec := time.Now().UTC().Format("2006-01-02T03:04:05.000Z")
+	// return tISOWithMiliSec
+	utcTime := time.Now().UTC()
+	iso := utcTime.String()
+	isoBytes := []byte(iso)
+	iso = string(isoBytes[:10]) + "T" + string(isoBytes[11:23]) + "Z"
+	return iso
 }
+
+// func GenerateTimeHeader() (t time.Time, timeStamp string) {
+// 	tn := time.Now().UTC()
+// 	tISOWithMiliSec := tn.Format("2006-01-02T03:04:05.000Z")
+// 	return tn, tISOWithMiliSec
+// }
 
 /*
 The passphrase you specified when creating the APIKey.

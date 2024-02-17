@@ -64,6 +64,10 @@ func (o *okxFutureExternalService) PlaceASinglePosition(
 		return nil, err
 	}
 
-	r := decodeResBody.Data.(*entity.PlaceOrderEntity)
-	return r, nil
+	ePlaceSingleOrder := []entity.PlaceOrderEntity{}
+	ePlaceSingleOrder, err = helper.ResponseToStruct[entity.PlaceOrderEntity](ePlaceSingleOrder, decodeResBody.Data)
+	if err != nil {
+		return nil, err
+	}
+	return &ePlaceSingleOrder[0], nil
 }

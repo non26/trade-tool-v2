@@ -1,8 +1,8 @@
 package entity
 
 type SetLeverageFuture struct {
-	InstId  string
-	Lever   string
-	MgnMode string
-	PosSide string
+	InstId  string `json:"instId"`
+	Lever   string `json:"lever"`
+	MgnMode string `json:"mgnMode"`
+	PosSide string `json:"posSide"`
 }
