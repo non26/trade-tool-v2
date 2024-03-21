@@ -12,6 +12,7 @@ type PlaceASinglePositionOKXServiceRequest struct {
 	Px      string `json:"px"`
 	PxUsd   string `json:"pxUsd"`
 	PxVol   string `json:"pxVol"`
+	TgtCcy  string `json:"tgtCcy"`
 }
 
 func (p *PlaceASinglePositionOKXServiceRequest) ToPlaceSingleOrderRequest(e *entity.PlaceSingleOrderEntity) {
@@ -24,5 +25,5 @@ func (p *PlaceASinglePositionOKXServiceRequest) ToPlaceSingleOrderRequest(e *ent
 	p.Px = e.Px
 	p.PxUsd = e.PxUsd
 	p.PxVol = e.PxVol
-
+	p.TgtCcy = e.TgtCcy
 }

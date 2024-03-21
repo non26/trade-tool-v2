@@ -10,6 +10,7 @@ type PlaceSingleOrderEntity struct {
 	Px      string
 	PxUsd   string
 	PxVol   string
+	TgtCcy  string
 }
 
 type PlaceOrderEntity struct {

@@ -9,6 +9,7 @@ type PlaceASinglePositionHandlerRequest struct {
 	PosSide string `json:"posSide"`
 	OrdType string `json:"ordType"`
 	Sz      string `json:"sz"`
+	TgtCcy  string `json:"tgtCcy"`
 }
 
 func (p *PlaceASinglePositionHandlerRequest) ToPlaceSingleOrderEntity() *entity.PlaceSingleOrderEntity {
@@ -19,6 +20,7 @@ func (p *PlaceASinglePositionHandlerRequest) ToPlaceSingleOrderEntity() *entity.
 		PosSide: p.PosSide,
 		OrdType: p.OrdType,
 		Sz:      p.Sz,
+		TgtCcy:  p.TgtCcy,
 	}
 
 	return &e

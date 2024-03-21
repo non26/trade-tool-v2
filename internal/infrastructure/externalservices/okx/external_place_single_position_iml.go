@@ -19,7 +19,9 @@ func (o *okxFutureExternalService) PlaceASinglePosition(
 
 	body := &request.PlaceASinglePositionOKXServiceRequest{}
 	body.ToPlaceSingleOrderRequest(e)
-	body.InstId = helper.AddInstIdUSDTSWAPPostfix(body.InstId)
+	if body.PosSide != "" {
+		body.InstId = helper.AddInstIdUSDTSWAPPostfix(body.InstId)
+	}
 
 	_endPoint := o.okxFutureUrl.PlaceAPosition
 	_url := fmt.Sprintf("%v%v", o.okxFutureUrl.OkxFutureBaseUrl.Okx1, _endPoint)
